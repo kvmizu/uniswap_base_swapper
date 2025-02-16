@@ -1,48 +1,62 @@
-# Uniswap Memecoin Trader on Base Network
+# Uniswap Memecoin Swapper on Base Network
 
-This Python script facilitates trading memecoins on Uniswap's Base network using Web3 and the Uniswap v2-style router.
+This script allows you to swap memecoins on Uniswap V3 using the Base network. It interacts with Uniswap's smart contracts via Web3.py and executes token swaps.
 
 ## Features
-- Connects to the Base network via Infura.
-- Swaps ETH for a specified memecoin.
-- Implements transaction signing and submission.
-- Customizable slippage and deadline settings.
+- Uses **Uniswap V3 Router** to swap WETH for a memecoin.
+- Supports the **Base network** (Layer 2 solution).
+- Uses **Web3.py** to connect to Ethereum and sign transactions.
+- Customizable **slippage settings** and **gas limits**.
 
-## Prerequisites
-- Python 3.7+
-- Infura Project ID
-- Web3 Python library
-- Private key with funded ETH for gas fees
+---
 
-## Installation
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/your-repo/uniswap-base-trader.git
-   cd uniswap-base-trader
-   ```
-2. Install dependencies:
-   ```sh
-   pip install web3 eth_account
-   ```
-3. Download the Uniswap router ABI:
-   - Save it as `uniswap_router_abi.json` in the project directory.
-
-## Configuration
-- Update `INFURA_URL` with your Infura project ID.
-- Set `PRIVATE_KEY` to your wallet’s private key.
-- Define the `TOKEN_ADDRESS` for the memecoin.
-
-## Usage
-Run the script to swap ETH for the specified token:
+## Requirements
+### **Install Dependencies**
+Ensure you have Python installed, then install the required packages:
 ```sh
-python uniswap_base_trader.py
+pip install web3 eth-account
 ```
 
-## Notes
-- Ensure your wallet has enough ETH for gas fees.
-- The default slippage is 0.5% and can be adjusted.
-- Transactions are sent via the Uniswap router.
+### **Set Up Environment Variables**
+Before running the script, set up your wallet details:
+```sh
+export PRIVATE_KEY="your_private_key"
+export INFURA_URL="https://base-mainnet.infura.io/v3/your_project_id"
+export WALLET_ADDRESS="your_wallet_address"
+```
 
-## Disclaimer
-Use at your own risk. Ensure your private key is kept secure and never exposed in public repositories.
+### **Base Network Uniswap V3 Router**
+- **Router Address**: `0xE592427A0AEce92De3Edee1F18E0157C05861564`
+- **WETH Contract**: `0x4200000000000000000000000000000000000006`
+- **Memecoin Address**: Replace with your desired token contract
+
+---
+
+## Usage
+### **Run the Swap Script**
+```sh
+python swap_memecoin.py
+```
+This will swap **0.01 WETH** for your selected memecoin.
+
+---
+
+## Code Explanation
+- **Connects to Base Network** via Infura/Alchemy.
+- **Builds a Uniswap transaction** using `exactInputSingle`.
+- **Signs and broadcasts** the transaction to the network.
+- **Prints the transaction hash** for tracking.
+
+---
+
+## Notes
+- Make sure you have **enough ETH for gas fees**.
+- Adjust **`fee` parameter** (3000 for 0.3%, 500 for 0.05% pools).
+- Consider **implementing slippage protection** (`amountOutMinimum > 0`).
+- Use [Basescan](https://basescan.org) to track transactions.
+
+---
+
+## License
+This project is open-source and free to use under the **MIT License**.
 
